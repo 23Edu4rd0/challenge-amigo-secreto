@@ -78,13 +78,24 @@ function sortearAmigo() {
 
 // Função para desfazer o último sorteio
 function desfazerSorteio() {
-    if (estadoAnterior.sorteados.length === 0) {
+    if (sorteados.length === 0) {
         alert('Não há sorteio para desfazer.');
         return;
     }
 
-    sorteados = [...estadoAnterior.sorteados];
-    document.getElementById('resultado').innerHTML = estadoAnterior.resultado;
+    if (sorteados.length === 1) {
+        // Limpa o resultado do sorteio e reinicia o sorteio
+        document.getElementById('resultado').innerHTML = '';
+        sorteados = [];
+        estadoAnterior.sorteados = [];
+        estadoAnterior.resultado = '';
+        alert('O sorteio foi reiniciado. Por favor, realize um novo sorteio.');
+    } else {
+        // Volta ao estado anterior
+        sorteados.pop();
+        document.getElementById('resultado').innerHTML = estadoAnterior.resultado;
+        alert('O sorteio foi desfeito. Voltando ao estado anterior.');
+    }
 }
 
 // Adiciona um ouvinte de eventos para o campo de entrada para detectar a tecla Enter
